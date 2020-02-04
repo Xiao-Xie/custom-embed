@@ -59,9 +59,16 @@
       <section class="jumbotron text-center my-0">
         <div class="container">
           <!-- Search Form -->
-          <input type="button" name="Search" value="Search" onclick="handleSearch()" />
+          <input type="text" name="toembed" id="input-value"/>
+          <input type="button" name="pre-view" value="Pre View" onclick="handlePreView()" />
+          <input type="button" name="button-save" value="Save" onclick="handleClick()" />
+          <!-- <input type="button" name="Search" value="Search" onclick="handleSearch()" /> -->
         </div>
       </section>
+
+      <div id="preview">
+        <img id="preview-image" src="logo192.png" />
+      </div>
 
       <div class="album py-5 bg-light">
         <div class="container">
@@ -70,7 +77,7 @@
       </div>
     </main>
 
-    <footer class="text-muted">
+    <!-- <footer class="text-muted">
       <div class="container">
         <p class="float-right">
           <a href="#">Back to top</a>
@@ -79,7 +86,7 @@
           This is a search plugin reference implementation for the Custom Embed
         </p>
       </div>
-    </footer>
+    </footer> -->
     <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -125,19 +132,33 @@
 
      let data = []
 
-     const handleSearch = () => ({
-       // 1. Make an Ajax call to content source
-       // 2. Set data based on response
-       // 3. Re-render search results
+    //  const handleSearch = () => ({
+    //    // 1. Make an Ajax call to content source
+    //    // 2. Set data based on response
+    //    // 3. Re-render search results
 
-       data = [
-         {
-           "id": 1,
-           "text": "Result One"
-         }
-       ]
-       render()
-     })
+    //    superagent
+    //      .get('/pf/api/v3/content/fetch/movie-search')
+    //      .query({ query: JSON.stringify({"text":searchTerm})})
+    //      .set('Accept', 'application/json')
+    //      .then(res => {
+    //        data = res.body.Search
+    //        render()
+    //      });
+
+    //    data = [
+    //      {
+    //        "id": 1,
+    //        "text": "Result One"
+    //      }
+    //    ]
+    //    render()
+    //  })
+
+    const handlePreView = ()=>{
+      let newSrc = document.getElementById("input-value").value;
+      document.querySelector("#preview-image").src = newSrc;
+    }
 
 
      const render = () => {
@@ -173,9 +194,9 @@
 
        const ansCustomEmbed = {
          id: index,
-         url: 'https://',
+         url: document.querySelector("#preview-image").src,
          config: {
-           "your_config_setting_1": "value"
+           "embed_type": "hero"
          }
        }
 
