@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
 
         <p>
-          Advance Custome Embed
+          Advance Custom Embed
         </p>
         
       </header>
