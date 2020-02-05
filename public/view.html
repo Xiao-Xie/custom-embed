@@ -86,16 +86,18 @@
 
      // Render the content data and contextual configuration together
      const render = (data, config) => {
-       const template = document.getElementById('content_template').innerHTML
+      // const template = document.getElementById('content_template').innerHTML
        const id = 'item-' + data.id
-       const html = template
-         .replace('%id%', id)
-         .replace('%text%', data.text)
-         .replace('%option_1%', (config.option_1 ? config.option_1 : ""))
+      //  const html = template
+      //    .replace('%id%', id)
+      //    .replace('%text%', data.text)
+      //    .replace('%option_1%', (config.option_1 ? config.option_1 : ""))
 
-       const element = document.createElement('div')
+
+       const element = document.createElement(config.element)
+       element.src = config.src;
        document.getElementById('search_content').appendChild(element)
-       element.outerHTML = html
+       //element.outerHTML = html
      }
 
      // ------------------------------------------------
