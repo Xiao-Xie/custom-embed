@@ -161,26 +161,26 @@
     }
 
 
-     const render = () => {
-       // Show search results to user
-       const template = document.getElementById('content_template').innerHTML
-       document.getElementById('search_content').innerHTML = '';
+    //  const render = () => {
+    //    // Show search results to user
+    //    const template = document.getElementById('content_template').innerHTML
+    //    document.getElementById('search_content').innerHTML = '';
 
-       for (i = 0; i < data.length; i++) {
+    //    for (i = 0; i < data.length; i++) {
 
-         const html = template.
-           replace('%text', data.text);
+    //      const html = template.
+    //        replace('%text', data.text);
 
-         const id = 'item-' + i;
-         const element = document.createElement('div')
-         element.id = id;
-         document.getElementById('search_content').appendChild(element)
-         element.outerHTML = html
-         document
-           .getElementById(id)
-           .addEventListener('click', handleClick(i))
-       }
-     }
+    //      const id = 'item-' + i;
+    //      const element = document.createElement('div')
+    //      element.id = id;
+    //      document.getElementById('search_content').appendChild(element)
+    //      element.outerHTML = html
+    //      document
+    //        .getElementById(id)
+    //        .addEventListener('click', handleClick(i))
+    //    }
+    //  }
 
 
      const handleClick = ()=> {
@@ -194,7 +194,7 @@
 
        const ansCustomEmbed = {
          id: "1",
-         url: document.querySelector("#preview-image").src,
+         url: "https://custom-embed.herokuapp.com/search.html",
          config: {
            "embed_type": "hero",
            "element":"img",
@@ -222,7 +222,7 @@
          })
        }, Number.parseInt(parameters.wait))
 
-       render()
+      // render()
      }
     </script>
   </body>
