@@ -16,12 +16,18 @@
   <body>
     <template id="content_template">
       <!-- Rendered Item -->
-      <div class="col-md-12" id="%id%">
+      <img src="%src%"/>
+      <div class="caption">%caption%</div>
+      <div class="title">%title%</div>
+      <div class="photographor">%photographor%</div>
+      <div class="image_source">%image_source%</div>
+      <div class="credit">%credit%</div>
+      <!-- <div class="col-md-12" id="%id%">
         %text%
       </div>
       <div class="col-md-12">
         %option_1%
-      </div>
+      </div> -->
     </template>
     <main role="main">
       <div class="album bg-light">
@@ -88,16 +94,19 @@
      const render = (data, config) => {
       // const template = document.getElementById('content_template').innerHTML
        const id = 'item-' + data.id
-      //  const html = template
-      //    .replace('%id%', id)
-      //    .replace('%text%', data.text)
-      //    .replace('%option_1%', (config.option_1 ? config.option_1 : ""))
+       const html = template
+         .replace('%caption%', data.caption)
+         .replace('%src%', data.src)
+         .replace('%title%', data.title)
+         .replace('%photographor%', data.photographor)
+         .replace('%source%', data.source)
+         .replace('%credit%', data.credit)
 
 
-       const element = document.createElement(config.element)
-       element.src = config.src;
+      const element = document.createElement("div")
+       //element.src = config.src;
        document.getElementById('search_content').appendChild(element)
-       //element.outerHTML = html
+       element.outerHTML = html
      }
 
      // ------------------------------------------------

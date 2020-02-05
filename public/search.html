@@ -59,9 +59,37 @@
       <section class="jumbotron text-center my-0">
         <div class="container">
           <!-- Search Form -->
-          <input type="text" name="toembed" id="input-value"/>
+          <div>
+            Element Type: 
+            <select class="custom-embed" id="element_type">
+              <option value="hero_image">Hero Image</option>
+              <option value="regular_image">Regular Image</option>
+              <option value="about_project">About the project</option>
+              <option value="about_author">About the author</option>
+            </select>
+          </div>
+          <div>
+            Image Src: <input class="custom-embed" type="text" name="src" id="image_src"/>
+          </div>
+          <div>
+            Caption: <input class="custom-embed" type="text" name="caption" id="image_caption"/>
+          </div>
+          <div>
+            Title: <input class="custom-embed" type="text" name="title" id="imgage_title"/>
+          </div>
+          <div>
+            Photographor: <input class="custom-embed" type="text" name="photographor" id="image_photographor"/>
+          </div>
+          <div>
+            Source: <input class="custom-embed" type="text" name="source" id="image_source"/>
+          </div>
+          <div>
+            Credit: <input class="custom-embed" type="text" name="credit" id="image_credit"/>
+          </div>
+
+
           <input type="button" name="pre-view" value="Pre View" onclick="handlePreView()" />
-          <input type="button" name="button-save" value="Save" onclick="handleClick()" />
+          <input type="button" name="button-save" value="Save" onclick="handleSave()" />
           <!-- <input type="button" name="Search" value="Search" onclick="handleSearch()" /> -->
         </div>
       </section>
@@ -70,14 +98,14 @@
         <img id="preview-image" src="logo192.png" />
       </div>
 
-      <div class="album py-5 bg-light">
+      <!-- <div class="album py-5 bg-light">
         <div class="container">
           <div class="row" id="search_content"></div>
         </div>
-      </div>
+      </div> -->
     </main>
 
-    <!-- <footer class="text-muted">
+    <footer class="text-muted">
       <div class="container">
         <p class="float-right">
           <a href="#">Back to top</a>
@@ -86,8 +114,8 @@
           This is a search plugin reference implementation for the Custom Embed
         </p>
       </div>
-    </footer> -->
-    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+    </footer>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/superagent"></script> -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -156,7 +184,7 @@
     //  })
 
     const handlePreView = ()=>{
-      let newSrc = document.getElementById("input-value").value;
+      let newSrc = document.getElementById("image_src").value;
       document.querySelector("#preview-image").src = newSrc;
     }
 
@@ -183,7 +211,7 @@
     //  }
 
 
-     const handleClick = ()=> {
+     const handleSave = ()=> {
        // Send message back to Composer about selected item
        // message must contain:
        // {
@@ -192,15 +220,21 @@
        //   "config": (contextual metadata - object)
        // }
 
+       const metadata = Array.from(document.querySelectorAll(".custom-embed"));
+
+       console.log(metadata)
+       const config = metadata.reduce((accumulator, input)=>{
+         let meta = {};
+         meta[input.id] = input.name;
+         return Object.assign(accumulator, meta)
+       }, {"embed_type":"hero_image", "element": "img"})
+
        const ansCustomEmbed = {
          id: "1",
          url: "https://custom-embed.herokuapp.com/search.html",
-         config: {
-           "embed_type": "hero",
-           "element":"img",
-           "src": document.querySelector("#preview-image").src,
-         }
+         config: config
        }
+       console.log(config)
 
        sendMessage('data', ansCustomEmbed);
        window.close();

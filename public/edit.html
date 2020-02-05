@@ -113,12 +113,12 @@
 
      // Render the content data and contextual configuration together
      const render = (content, config) => {
-       const template = document.getElementById('content_template').innerHTML
-       const id = 'item-' + content.id
-       const html = template
-         .replace('%id%', id)
-         .replace('%text%', content.text)
-         .replace('%option_1%', (config.option_1 ? config.option_1 : ""))
+      //  const template = document.getElementById('content_template').innerHTML
+      //  const id = 'item-' + content.id
+      //  const html = template
+      //    .replace('%id%', id)
+      //    .replace('%text%', content.text)
+      //    .replace('%option_1%', (config.option_1 ? config.option_1 : ""))
 
        const element = document.createElement('div')
        document.getElementById('content_holder').innerHTML = ''
@@ -135,7 +135,7 @@
 
        // Update Composer and re-render form
        sendMessage('data', data)
-       render(content, data.config)
+       //render(content, data.config)
      }
 
      // -------------------------------------------------
