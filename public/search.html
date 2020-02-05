@@ -183,7 +183,7 @@
      }
 
 
-     const handleClick = index => event => {
+     const handleClick = ()=> {
        // Send message back to Composer about selected item
        // message must contain:
        // {
@@ -193,7 +193,7 @@
        // }
 
        const ansCustomEmbed = {
-         id: index,
+         id: "1",
          url: document.querySelector("#preview-image").src,
          config: {
            "embed_type": "hero"
