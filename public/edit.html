@@ -16,12 +16,12 @@
   <body>
     <template id="content_template">
       <!-- Rendered Item -->
-      <div class="col-md-12" id="%item_id%">
+      <!-- <div class="col-md-12" id="%item_id%">
         %text%
       </div>
       <div class="col-md-12">
         %option_1%
-      </div>
+      </div> -->
     </template>
 
     <main role="main">
@@ -33,11 +33,38 @@
 
           <!-- Edit Form -->
           <div class="row" id="config_edit">
-            <div class="col-md-6">
+            <div>
+              Element Type: 
+              <select class="custom-embed" id="element_type" name="element_type">
+                <option value="hero_image">Hero Image</option>
+                <option value="regular_image">Regular Image</option>
+                <option value="about_project">About the project</option>
+                <option value="about_author">About the author</option>
+              </select>
+            </div>
+            <div>
+              Image Src: <input class="custom-embed" type="text" name="src" id="image_src"/>
+            </div>
+            <div>
+              Caption: <input class="custom-embed" type="text" name="caption" id="image_caption"/>
+            </div>
+            <div>
+              Title: <input class="custom-embed" type="text" name="title" id="imgage_title"/>
+            </div>
+            <div>
+              Photographor: <input class="custom-embed" type="text" name="photographor" id="image_photographor"/>
+            </div>
+            <div>
+              Source: <input class="custom-embed" type="text" name="source" id="image_source"/>
+            </div>
+            <div>
+              Credit: <input class="custom-embed" type="text" name="credit" id="image_credit"/>
+            </div>
+            <!-- <div class="col-md-6">
               <label for="option_1"><span>Option 1</span>
                 <input id="option_1" name="option_1" type="textfield" value="" />
               </label>
-            </div>
+            </div> -->
             <div class="col-md-6 p-3">
               <button type="button" class="btn btn-primary" id="btn_apply">
                 Apply Changes
@@ -120,28 +147,49 @@
       //    .replace('%text%', content.text)
       //    .replace('%option_1%', (config.option_1 ? config.option_1 : ""))
 
-       const element = document.createElement('div')
-       document.getElementById('content_holder').innerHTML = ''
-       document.getElementById('content_holder').appendChild(element)
-       element.outerHTML = html
+      //  const element = document.createElement('div')
+      //  document.getElementById('content_holder').innerHTML = ''
+      //  document.getElementById('content_holder').appendChild(element)
+      //  //element.outerHTML = html
 
-       document.getElementById('option_1').value = (config.option_1 ? config.option_1 : "")
+       //document.getElementById('option_1').value = (config.option_1 ? config.option_1 : "")
+
+       const metadata = Array.from(document.querySelectorAll(".custom-embed"));
+        for (let i=0; i<metadata.length; i++){
+          document.getElementById(metadata[i]).value = config[metadata[i]];
+        }
+
      }
 
 
      // Update config based on form changes, submit back to Composer and re-render
      const applyChanges = () => {
-       data.config.option_1 = document.getElementById('option_1').value
+       //data.config.option_1 = document.getElementById('option_1').value
+
+       const metadata = Array.from(document.querySelectorAll(".custom-embed"));
+
+       console.log(metadata)
+       const config = metadata.reduce((accumulator, input)=>{
+         let meta = {};
+         meta[input.name] = input.value;
+         return Object.assign(accumulator, meta)
+       }, {})
+
+       data.config = config
+
+       sendMessage('data', data);
+       window.close();
 
        // Update Composer and re-render form
-       sendMessage('data', data)
+       //sendMessage('data', data)
        //render(content, data.config)
      }
 
      // -------------------------------------------------
 
      const dismissEditor = () => {
-       sendMessage('cancel')
+       //sendMessage('cancel')
+       window.close();
      }
 
      window.onload = function() {
