@@ -61,7 +61,7 @@
           <!-- Search Form -->
           <div>
             Element Type: 
-            <select class="custom-embed" id="element_type">
+            <select class="custom-embed" id="element_type" name="element_type">
               <option value="hero_image">Hero Image</option>
               <option value="regular_image">Regular Image</option>
               <option value="about_project">About the project</option>
@@ -225,16 +225,17 @@
        console.log(metadata)
        const config = metadata.reduce((accumulator, input)=>{
          let meta = {};
-         meta[input.id] = input.name;
+         meta[input.name] = input.value;
          return Object.assign(accumulator, meta)
-       }, {"embed_type":"hero_image", "element": "img"})
+       }, {})
 
        const ansCustomEmbed = {
          id: "1",
          url: "https://custom-embed.herokuapp.com/search.html",
+         element_type: document.querySelector("#element_type").value,
          config: config
        }
-       console.log(config)
+       console.log(ansCustomEmbed)
 
        sendMessage('data', ansCustomEmbed);
        window.close();
