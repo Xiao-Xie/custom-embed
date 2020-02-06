@@ -158,7 +158,7 @@
        console.log('default content:', metadata)
         for (let i=0; i<metadata.length; i++){
           if (document.getElementById(metadata[i])){
-            document.getElementById(metadata[i]).value = config[metadata[i]];
+            document.getElementById(metadata[i].id).value = config[metadata[i]];
           }
         }
 
