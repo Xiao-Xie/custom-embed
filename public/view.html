@@ -14,21 +14,6 @@
     />
   </head>
   <body>
-    <template id="content_template">
-      <!-- Rendered Item -->
-      <!-- <img src="%src%"/>
-      <div class="caption">%caption%</div>
-      <div class="title">%title%</div>
-      <div class="photographor">%photographor%</div>
-      <div class="image_source">%image_source%</div>
-      <div class="credit">%credit%</div> -->
-      <!-- <div class="col-md-12" id="%id%">
-        %text%
-      </div>
-      <div class="col-md-12">
-        %option_1%
-      </div> -->
-    </template>
     <main role="main">
       <div class="album bg-light">
         <div class="container-fluid">
@@ -120,7 +105,7 @@
       //    .replace('%photographor%', data.photographor)
       //    .replace('%source%', data.source)
       //    .replace('%credit%', data.credit)
-      console.log(data);
+      console.log(config);
       // console.log(configs);
       // let config = configs|| {
       //   element_type: "hero_image",
@@ -132,19 +117,15 @@
       //   credit: "pintrest",
       // }
       const element = document.createElement("img")
-      element.src = config.src;
+      element.src = config.image_src;
       document.getElementById('search_content').appendChild(element)
-
-      // let elements = document.querySelectorAll('custom-embed');
-
       for (let key in config){
-
-        let newEle = document.createElement("input");
-        newEle.value = config[key];
-        document.getElementById('search_content').appendChild(newEle)
+        console.log(key);
+        let newEle = document.getElementById(key);
+        if(newEle){
+          newEle.value = config[key];
+        }
       }
-       
-       //element.outerHTML = html
      }
 
      // ------------------------------------------------

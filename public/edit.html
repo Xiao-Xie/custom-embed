@@ -14,15 +14,6 @@
     />
   </head>
   <body>
-    <template id="content_template">
-      <!-- Rendered Item -->
-      <!-- <div class="col-md-12" id="%item_id%">
-        %text%
-      </div>
-      <div class="col-md-12">
-        %option_1%
-      </div> -->
-    </template>
 
     <main role="main">
       <div class="album py-5 bg-light">
@@ -66,10 +57,10 @@
               </label>
             </div> -->
             <div class="col-md-6 p-3">
-              <button type="button" class="btn btn-primary" id="btn_apply">
+              <button type="button" class="btn btn-primary" id="btn_apply" onclick="applyChanges()">
                 Apply Changes
               </button>
-              <button type="button" class="btn btn-light mx-1" id="btn_cancel">
+              <button type="button" class="btn btn-light mx-1" id="btn_cancel" onclick="dismissEditor()">
                 Close Editor
               </button>
             </div>
@@ -154,18 +145,28 @@
 
        //document.getElementById('option_1').value = (config.option_1 ? config.option_1 : "")
 
-       const metadata = Array.from(document.querySelectorAll(".custom-embed"));
-       console.log('default content:', metadata)
+      //  const metadata = Array.from(document.querySelectorAll(".custom-embed"));
+      //  console.log('default content:', metadata)
 
-       console.log('config:', config)
+      //  console.log('config:', config)
 
-       console.log('data:', data)
-       for (let i=0; i<metadata.length; i++){
-          if (document.getElementById(metadata[i])){
-            document.getElementById(metadata[i].id).value = config[metadata[i]];
-          }
+      //  console.log('data:', data)
+      //  for (let i=0; i<metadata.length; i++){
+      //     if (document.getElementById(metadata[i])){
+      //       document.getElementById(metadata[i].id).value = config[metadata[i]];
+      //     }
+      //   }
+
+      const element = document.createElement("img")
+     element.src = config.image_src;
+      document.getElementById('config_edit').appendChild(element)
+      for (let key in config){
+        let newEle = document.getElementById(key);
+        if(newEle){
+          newEle.value = config[key];
         }
-
+      }
+     
      }
 
 
@@ -175,14 +176,15 @@
 
        const metadata = Array.from(document.querySelectorAll(".custom-embed"));
 
-       console.log('edit meta data',metadata);
        const config = metadata.reduce((accumulator, input)=>{
          let meta = {};
-         meta[input.name] = input.value;
+         meta[input.id] = input.value;
          return Object.assign(accumulator, meta)
        }, {})
 
        data.config = config
+
+       console.log(data)
 
        sendMessage('data', data);
        window.close();
@@ -228,8 +230,8 @@
 
        data = JSON.parse(decodeURIComponent(parameters.p))
        fetchData(data)
-       document.getElementById('btn_apply').onclick = applyChanges
-       document.getElementById('btn_cancel').onclick = dismissEditor
+       //document.getElementById('btn_apply').onclick = applyChanges
+       //document.getElementById('btn_cancel').onclick = dismissEditor
      }
     </script>
   </body>
