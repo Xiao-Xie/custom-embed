@@ -142,105 +142,108 @@
         ></script>
         <script>
             const sendMessage = function(action, data) {
-              window.parent.postMessage(
-                JSON.stringify({
-                  source: 'custom_embed',
-                  action,
-                  data,
-                  key: parseQueryString()['k']
-                }),
-                '*'
-              )
-            }
+                window.parent.postMessage(
+                    JSON.stringify({
+                        source: "custom_embed",
+                        action,
+                        data,
+                        key: parseQueryString()["k"]
+                    }),
+                    "*"
+                );
+            };
 
             const parseQueryString = function() {
-              const params = location.search.split('?')[1] || ''
-              const kv = params.split('&')
-              return kv.reduce((result, item) => {
-                const [key, value] = item.split('=')
-                return Object.assign(result, {
-                  [key]: value
-                })
-              }, {})
-            }
+                const params = location.search.split("?")[1] || "";
+                const kv = params.split("&");
+                return kv.reduce((result, item) => {
+                    const [key, value] = item.split("=");
+                    return Object.assign(result, {
+                        [key]: value
+                    });
+                }, {});
+            };
 
-            let data = {}      // ANS custom embed response
-            let content = {}   // The fetched content from external data source
+            let data = {}; // ANS custom embed response
+            let content = {}; // The fetched content from external data source
 
             // -------------------------------------------------
 
             // Retrieve the content data based on parameters
-            const fetchData = (ansCustomEmbed) => {
-              content = {
-                id: 1,
-                text: 'Result One'
-              }
-              render(content, ansCustomEmbed.config)
-            }
+            const fetchData = ansCustomEmbed => {
+                content = {
+                    id: 1,
+                    text: "Result One"
+                };
+                render(content, ansCustomEmbed.config);
+            };
 
             // Render the content data and contextual configuration together
             const render = (content, config) => {
-             const element = document.createElement("img");
-             element.src = config.image_src;
-             document.getElementById('config_edit').appendChild(element);
-             for (let key in config){
-               let newEle = document.getElementById(key);
-               if(newEle){
-                 newEle.value = config[key];
-               }
-            }
+                const element = document.createElement("img");
+                element.src = config.image_src;
+                document.getElementById("config_edit").appendChild(element);
+                for (let key in config) {
+                    let newEle = document.getElementById(key);
+                    if (newEle) {
+                        newEle.value = config[key];
+                    }
+                }
+            };
 
             // Update config based on form changes, submit back to Composer and re-render
             const applyChanges = () => {
-              const metadata = Array.from(document.querySelectorAll(".custom-embed"));
-              const config = metadata.reduce((accumulator, input)=>{
-                let meta = {};
-                meta[input.id] = input.value;
-                return Object.assign(accumulator, meta)
-              }, {})
-              data.config = config
-              //Update Composer and re-render form
-              sendMessage('data', data);
-              render(content, data.config);
-              //  window.close();
-            }
+                const metadata = Array.from(
+                    document.querySelectorAll(".custom-embed")
+                );
+                const config = metadata.reduce((accumulator, input) => {
+                    let meta = {};
+                    meta[input.id] = input.value;
+                    return Object.assign(accumulator, meta);
+                }, {});
+                data.config = config;
+                //Update Composer and re-render form
+                sendMessage("data", data);
+                render(content, data.config);
+                //  window.close();
+            };
 
             // -------------------------------------------------
 
             const dismissEditor = () => {
-              window.close();
-            }
+                window.close();
+            };
 
             window.onload = function() {
-              const parameters = Object.assign(
-                {
-                  wait: 0
-                },
-                parseQueryString()
-              )
-              // Emulate wait time
-              setTimeout(function() {
-                sendMessage('ready', {
-                  height: document.documentElement.scrollHeight
-                })
-              }, Number.parseInt(parameters.wait))
+                const parameters = Object.assign(
+                    {
+                        wait: 0
+                    },
+                    parseQueryString()
+                );
+                // Emulate wait time
+                setTimeout(function() {
+                    sendMessage("ready", {
+                        height: document.documentElement.scrollHeight
+                    });
+                }, Number.parseInt(parameters.wait));
 
-              /* editor = ace.edit('editor')
-               * editor.getSession().setUseWorker(false)
-               * editor.setTheme('ace/theme/chrome')
-               * editor.getSession().setMode('ace/mode/json')
-               * editor.setOptions({
-               *   autoScrollEditorIntoView: true,
-               *   copyWithEmptySelection: true
-               * })
-               * editor.session.setUseWrapMode(true)*/
-              //editor.session.on('change', function(delta) {
-              //  renderChanges()
-              //})
+                /* editor = ace.edit('editor')
+                 * editor.getSession().setUseWorker(false)
+                 * editor.setTheme('ace/theme/chrome')
+                 * editor.getSession().setMode('ace/mode/json')
+                 * editor.setOptions({
+                 *   autoScrollEditorIntoView: true,
+                 *   copyWithEmptySelection: true
+                 * })
+                 * editor.session.setUseWrapMode(true)*/
+                //editor.session.on('change', function(delta) {
+                //  renderChanges()
+                //})
 
-              data = JSON.parse(decodeURIComponent(parameters.p))
-              fetchData(data)
-            }
+                data = JSON.parse(decodeURIComponent(parameters.p));
+                fetchData(data);
+            };
         </script>
     </body>
 </html>
