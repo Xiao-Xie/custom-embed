@@ -1,263 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="theme-color" content="#212529" />
-    <title>Search API plugin</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <style>
-      .hoverable {
-        padding-top: 1em;
-        cursor: pointer;
-      }
-      .hoverable:hover {
-        background-color: #e2cdcd;
-      }
-    </style>
-  </head>
-  <body>
-    <template id="content_template">
-      <!-- Rendered Search Result Item -->
-      <div>%text%</div>
-    </template>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="theme-color" content="#212529" />
+        <title>Search API plugin</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        />
+        <style>
+            .hoverable {
+                padding-top: 1em;
+                cursor: pointer;
+            }
+            .hoverable:hover {
+                background-color: #e2cdcd;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="navbar navbar-dark bg-dark box-shadow">
+                <div class="container d-flex justify-content-between">
+                    <a href="#" class="navbar-brand d-flex align-items-center">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="mr-2"
+                        >
+                            <path
+                                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                            ></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                        <strong>Search</strong>
+                    </a>
+                </div>
+            </div>
+        </header>
 
-    <header>
-      <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="mr-2"
-            >
-              <path
-                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
-              ></path>
-              <circle cx="12" cy="13" r="4"></circle>
-            </svg>
-            <strong>Search</strong>
-          </a>
-        </div>
-      </div>
-    </header>
+        <main role="main">
+            <section class="jumbotron text-center my-0">
+                <div class="container">
+                    <!-- Search Form -->
+                    <div>
+                        Element Type:
+                        <select
+                            class="custom-embed"
+                            id="element_type"
+                            name="element_type"
+                        >
+                            <option value="hero_image">Hero Image</option>
+                            <option value="regular_image">Regular Image</option>
+                            <option value="about_project"
+                                >About the project</option
+                            >
+                            <option value="about_author"
+                                >About the author</option
+                            >
+                        </select>
+                    </div>
+                    <div>
+                        Image Src:
+                        <input
+                            class="custom-embed"
+                            type="text"
+                            name="src"
+                            id="image_src"
+                        />
+                    </div>
+                    <div>
+                        Caption:
+                        <input
+                            class="custom-embed"
+                            type="text"
+                            name="caption"
+                            id="image_caption"
+                        />
+                    </div>
+                    <div>
+                        Title:
+                        <input
+                            class="custom-embed"
+                            type="text"
+                            name="title"
+                            id="imgage_title"
+                        />
+                    </div>
+                    <div>
+                        Photographor:
+                        <input
+                            class="custom-embed"
+                            type="text"
+                            name="photographor"
+                            id="image_photographor"
+                        />
+                    </div>
+                    <div>
+                        Source:
+                        <input
+                            class="custom-embed"
+                            type="text"
+                            name="source"
+                            id="image_source"
+                        />
+                    </div>
+                    <div>
+                        Credit:
+                        <input
+                            class="custom-embed"
+                            type="text"
+                            name="credit"
+                            id="image_credit"
+                        />
+                    </div>
 
-    <main role="main">
-      <section class="jumbotron text-center my-0">
-        <div class="container">
-          <!-- Search Form -->
-          <div>
-            Element Type: 
-            <select class="custom-embed" id="element_type" name="element_type">
-              <option value="hero_image">Hero Image</option>
-              <option value="regular_image">Regular Image</option>
-              <option value="about_project">About the project</option>
-              <option value="about_author">About the author</option>
-            </select>
-          </div>
-          <div>
-            Image Src: <input class="custom-embed" type="text" name="src" id="image_src"/>
-          </div>
-          <div>
-            Caption: <input class="custom-embed" type="text" name="caption" id="image_caption"/>
-          </div>
-          <div>
-            Title: <input class="custom-embed" type="text" name="title" id="imgage_title"/>
-          </div>
-          <div>
-            Photographor: <input class="custom-embed" type="text" name="photographor" id="image_photographor"/>
-          </div>
-          <div>
-            Source: <input class="custom-embed" type="text" name="source" id="image_source"/>
-          </div>
-          <div>
-            Credit: <input class="custom-embed" type="text" name="credit" id="image_credit"/>
-          </div>
+                    <input
+                        type="button"
+                        name="pre-view"
+                        value="Pre View"
+                        onclick="handlePreView()"
+                    />
+                    <input
+                        type="button"
+                        name="button-save"
+                        value="Save"
+                        onclick="handleSave()"
+                    />
+                </div>
+            </section>
 
+            <div id="preview">
+                <img id="preview-image" src="logo192.png" />
+            </div>
+        </main>
 
-          <input type="button" name="pre-view" value="Pre View" onclick="handlePreView()" />
-          <input type="button" name="button-save" value="Save" onclick="handleSave()" />
-          <!-- <input type="button" name="Search" value="Search" onclick="handleSearch()" /> -->
-        </div>
-      </section>
+        <footer class="text-muted">
+            <div class="container">
+                <p class="float-right">
+                    <a href="#">Back to top</a>
+                </p>
+                <p>
+                    This is a search plugin reference implementation for the
+                    Custom Embed
+                </p>
+            </div>
+        </footer>
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            const sendMessage = function(action, data) {
+                window.parent.postMessage(
+                    JSON.stringify({
+                        source: "custom_embed",
+                        action,
+                        data,
+                        key: parseQueryString()["k"]
+                    }),
+                    "*"
+                );
+            };
 
-      <div id="preview">
-        <img id="preview-image" src="logo192.png" />
-      </div>
+            const parseQueryString = function() {
+                const params = location.search.split("?")[1] || "";
+                const kv = params.split("&");
+                return kv.reduce((result, item) => {
+                    const [key, value] = item.split("=");
+                    return Object.assign(result, {
+                        [key]: value
+                    });
+                }, {});
+            };
 
-      <!-- <div class="album py-5 bg-light">
-        <div class="container">
-          <div class="row" id="search_content"></div>
-        </div>
-      </div> -->
-    </main>
+            // ------------------------------------------------
 
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Back to top</a>
-        </p>
-        <p>
-          This is a search plugin reference implementation for the Custom Embed
-        </p>
-      </div>
-    </footer>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/superagent"></script> -->
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-     const sendMessage = function(action, data) {
-       window.parent.postMessage(
-         JSON.stringify({
-           source: 'custom_embed',
-           action,
-           data,
-           key: parseQueryString()['k']
-         }),
-         '*'
-       )
-     }
+            let data = [];
 
-     const parseQueryString = function() {
-       const params = location.search.split('?')[1] || ''
-       const kv = params.split('&')
-       return kv.reduce((result, item) => {
-         const [key, value] = item.split('=')
-         return Object.assign(result, {
-           [key]: value
-         })
-       }, {})
-     }
+            //  const handleSearch = () => ({
+            //    // 1. Make an Ajax call to content source
+            //    // 2. Set data based on response
+            //    // 3. Re-render search results
 
-     // ------------------------------------------------
+            //    superagent
+            //      .get('/pf/api/v3/content/fetch/movie-search')
+            //      .query({ query: JSON.stringify({"text":searchTerm})})
+            //      .set('Accept', 'application/json')
+            //      .then(res => {
+            //        data = res.body.Search
+            //        render()
+            //      });
 
+            //    data = [
+            //      {
+            //        "id": 1,
+            //        "text": "Result One"
+            //      }
+            //    ]
+            //    render()
+            //  })
 
-     let data = []
+            const handlePreView = () => {
+                let newSrc = document.getElementById("image_src").value;
+                document.querySelector("#preview-image").src = newSrc;
+            };
 
-    //  const handleSearch = () => ({
-    //    // 1. Make an Ajax call to content source
-    //    // 2. Set data based on response
-    //    // 3. Re-render search results
+            //  const render = () => {
+            //    // Show search results to user
+            //    const template = document.getElementById('content_template').innerHTML
+            //    document.getElementById('search_content').innerHTML = '';
 
-    //    superagent
-    //      .get('/pf/api/v3/content/fetch/movie-search')
-    //      .query({ query: JSON.stringify({"text":searchTerm})})
-    //      .set('Accept', 'application/json')
-    //      .then(res => {
-    //        data = res.body.Search
-    //        render()
-    //      });
+            //    for (i = 0; i < data.length; i++) {
 
-    //    data = [
-    //      {
-    //        "id": 1,
-    //        "text": "Result One"
-    //      }
-    //    ]
-    //    render()
-    //  })
+            //      const html = template.
+            //        replace('%text', data.text);
 
-    const handlePreView = ()=>{
-      let newSrc = document.getElementById("image_src").value;
-      document.querySelector("#preview-image").src = newSrc;
-    }
+            //      const id = 'item-' + i;
+            //      const element = document.createElement('div')
+            //      element.id = id;
+            //      document.getElementById('search_content').appendChild(element)
+            //      element.outerHTML = html
+            //      document
+            //        .getElementById(id)
+            //        .addEventListener('click', handleClick(i))
+            //    }
+            //  }
 
+            const handleSave = () => {
+                // Send message back to Composer about selected item
+                // message must contain:
+                // {
+                //   "id": (content item id - string)
+                //   "url": (content source identifier - string)
+                //   "config": (contextual metadata - object)
+                // }
 
-    //  const render = () => {
-    //    // Show search results to user
-    //    const template = document.getElementById('content_template').innerHTML
-    //    document.getElementById('search_content').innerHTML = '';
+                const metadata = Array.from(
+                    document.querySelectorAll(".custom-embed")
+                );
 
-    //    for (i = 0; i < data.length; i++) {
+                console.log(metadata);
+                const config = metadata.reduce((accumulator, input) => {
+                    let meta = {};
+                    meta[input.id] = input.value;
+                    return Object.assign(accumulator, meta);
+                }, {});
 
-    //      const html = template.
-    //        replace('%text', data.text);
+                const ansCustomEmbed = {
+                    id: "1",
+                    url: "https://custom-embed.herokuapp.com/search.html",
+                    config: config
+                };
+                console.log(ansCustomEmbed);
 
-    //      const id = 'item-' + i;
-    //      const element = document.createElement('div')
-    //      element.id = id;
-    //      document.getElementById('search_content').appendChild(element)
-    //      element.outerHTML = html
-    //      document
-    //        .getElementById(id)
-    //        .addEventListener('click', handleClick(i))
-    //    }
-    //  }
+                sendMessage("data", ansCustomEmbed);
+                window.close();
+            };
 
+            // ------------------------------------------------
 
-     const handleSave = ()=> {
-       // Send message back to Composer about selected item
-       // message must contain:
-       // {
-       //   "id": (content item id - string)
-       //   "url": (content source identifier - string)
-       //   "config": (contextual metadata - object)
-       // }
+            window.onload = function() {
+                const parameters = Object.assign(
+                    {
+                        wait: 0
+                    },
+                    parseQueryString()
+                );
+                // Emulate wait time
+                setTimeout(function() {
+                    sendMessage("ready", {
+                        height: document.documentElement.scrollHeight
+                    });
+                }, Number.parseInt(parameters.wait));
 
-       const metadata = Array.from(document.querySelectorAll(".custom-embed"));
-
-       console.log(metadata)
-       const config = metadata.reduce((accumulator, input)=>{
-         let meta = {};
-         meta[input.id] = input.value;
-         return Object.assign(accumulator, meta)
-       }, {})
-
-       const ansCustomEmbed = {
-         id: "1",
-         url: "https://custom-embed.herokuapp.com/search.html",
-         config: config
-       }
-       console.log(ansCustomEmbed)
-
-       sendMessage('data', ansCustomEmbed);
-       window.close();
-     }
-
-     // ------------------------------------------------
-
-     window.onload = function() {
-       const parameters = Object.assign(
-         {
-           wait: 0
-         },
-         parseQueryString()
-       )
-       // Emulate wait time
-       setTimeout(function() {
-         sendMessage('ready', {
-           height: document.documentElement.scrollHeight
-         })
-       }, Number.parseInt(parameters.wait))
-
-      // render()
-     }
-    </script>
-  </body>
+                // render()
+            };
+        </script>
+    </body>
 </html>

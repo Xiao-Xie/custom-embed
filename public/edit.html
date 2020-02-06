@@ -1,238 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="theme-color" content="#212529" />
-    <title>Edit API plugin</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-  </head>
-  <body>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="theme-color" content="#212529" />
+        <title>Edit API plugin</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        />
+    </head>
+    <body>
+        <main role="main">
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div class="row" id="content_holder">
+                        Loading...
+                    </div>
 
-    <main role="main">
-      <div class="album py-5 bg-light">
-        <div class="container">
-          <div class="row" id="content_holder">
-            Loading...
-          </div>
+                    <!-- Edit Form -->
+                    <div class="row" id="config_edit">
+                        <div>
+                            Element Type:
+                            <select
+                                class="custom-embed"
+                                id="element_type"
+                                name="element_type"
+                            >
+                                <option value="hero_image">Hero Image</option>
+                                <option value="regular_image"
+                                    >Regular Image</option
+                                >
+                                <option value="about_project"
+                                    >About the project</option
+                                >
+                                <option value="about_author"
+                                    >About the author</option
+                                >
+                            </select>
+                        </div>
+                        <div>
+                            Image Src:
+                            <input
+                                class="custom-embed"
+                                type="text"
+                                name="src"
+                                id="image_src"
+                            />
+                        </div>
+                        <div>
+                            Caption:
+                            <input
+                                class="custom-embed"
+                                type="text"
+                                name="caption"
+                                id="image_caption"
+                            />
+                        </div>
+                        <div>
+                            Title:
+                            <input
+                                class="custom-embed"
+                                type="text"
+                                name="title"
+                                id="imgage_title"
+                            />
+                        </div>
+                        <div>
+                            Photographor:
+                            <input
+                                class="custom-embed"
+                                type="text"
+                                name="photographor"
+                                id="image_photographor"
+                            />
+                        </div>
+                        <div>
+                            Source:
+                            <input
+                                class="custom-embed"
+                                type="text"
+                                name="source"
+                                id="image_source"
+                            />
+                        </div>
+                        <div>
+                            Credit:
+                            <input
+                                class="custom-embed"
+                                type="text"
+                                name="credit"
+                                id="image_credit"
+                            />
+                        </div>
 
-          <!-- Edit Form -->
-          <div class="row" id="config_edit">
-            <div>
-              Element Type: 
-              <select class="custom-embed" id="element_type" name="element_type">
-                <option value="hero_image">Hero Image</option>
-                <option value="regular_image">Regular Image</option>
-                <option value="about_project">About the project</option>
-                <option value="about_author">About the author</option>
-              </select>
+                        <div class="col-md-6 p-3">
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="btn_apply"
+                                onclick="applyChanges()"
+                            >
+                                Apply Changes
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-light mx-1"
+                                id="btn_cancel"
+                                onclick="dismissEditor()"
+                            >
+                                Close Editor
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-              Image Src: <input class="custom-embed" type="text" name="src" id="image_src"/>
-            </div>
-            <div>
-              Caption: <input class="custom-embed" type="text" name="caption" id="image_caption"/>
-            </div>
-            <div>
-              Title: <input class="custom-embed" type="text" name="title" id="imgage_title"/>
-            </div>
-            <div>
-              Photographor: <input class="custom-embed" type="text" name="photographor" id="image_photographor"/>
-            </div>
-            <div>
-              Source: <input class="custom-embed" type="text" name="source" id="image_source"/>
-            </div>
-            <div>
-              Credit: <input class="custom-embed" type="text" name="credit" id="image_credit"/>
-            </div>
-            <!-- <div class="col-md-6">
-              <label for="option_1"><span>Option 1</span>
-                <input id="option_1" name="option_1" type="textfield" value="" />
-              </label>
-            </div> -->
-            <div class="col-md-6 p-3">
-              <button type="button" class="btn btn-primary" id="btn_apply" onclick="applyChanges()">
-                Apply Changes
-              </button>
-              <button type="button" class="btn btn-light mx-1" id="btn_cancel" onclick="dismissEditor()">
-                Close Editor
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+        </main>
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
-      type="text/javascript"
-      charset="utf-8"
-    ></script>
-    <script>
-     const sendMessage = function(action, data) {
-       window.parent.postMessage(
-         JSON.stringify({
-           source: 'custom_embed',
-           action,
-           data,
-           key: parseQueryString()['k']
-         }),
-         '*'
-       )
-     }
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js"
+            type="text/javascript"
+            charset="utf-8"
+        ></script>
+        <script>
+            const sendMessage = function(action, data) {
+              window.parent.postMessage(
+                JSON.stringify({
+                  source: 'custom_embed',
+                  action,
+                  data,
+                  key: parseQueryString()['k']
+                }),
+                '*'
+              )
+            }
 
-     const parseQueryString = function() {
-       const params = location.search.split('?')[1] || ''
-       const kv = params.split('&')
-       return kv.reduce((result, item) => {
-         const [key, value] = item.split('=')
-         return Object.assign(result, {
-           [key]: value
-         })
-       }, {})
-     }
+            const parseQueryString = function() {
+              const params = location.search.split('?')[1] || ''
+              const kv = params.split('&')
+              return kv.reduce((result, item) => {
+                const [key, value] = item.split('=')
+                return Object.assign(result, {
+                  [key]: value
+                })
+              }, {})
+            }
 
-     let data = {}      // ANS custom embed response
-     let content = {}   // The fetched content from external data source
+            let data = {}      // ANS custom embed response
+            let content = {}   // The fetched content from external data source
 
-     // -------------------------------------------------
+            // -------------------------------------------------
 
+            // Retrieve the content data based on parameters
+            const fetchData = (ansCustomEmbed) => {
+              content = {
+                id: 1,
+                text: 'Result One'
+              }
+              render(content, ansCustomEmbed.config)
+            }
 
-     // Retrieve the content data based on parameters
-     const fetchData = (ansCustomEmbed) => {
-       content = {
-         id: 1,
-         text: 'Result One'
-       }
-       render(content, ansCustomEmbed.config)
-     }
+            // Render the content data and contextual configuration together
+            const render = (content, config) => {
+             const element = document.createElement("img");
+             element.src = config.image_src;
+             document.getElementById('config_edit').appendChild(element);
+             for (let key in config){
+               let newEle = document.getElementById(key);
+               if(newEle){
+                 newEle.value = config[key];
+               }
+            }
 
-     // Render the content data and contextual configuration together
-     const render = (content, config) => {
-      //  const template = document.getElementById('content_template').innerHTML
-      //  const id = 'item-' + content.id
-      //  const html = template
-      //    .replace('%id%', id)
-      //    .replace('%text%', content.text)
-      //    .replace('%option_1%', (config.option_1 ? config.option_1 : ""))
+            // Update config based on form changes, submit back to Composer and re-render
+            const applyChanges = () => {
+              const metadata = Array.from(document.querySelectorAll(".custom-embed"));
+              const config = metadata.reduce((accumulator, input)=>{
+                let meta = {};
+                meta[input.id] = input.value;
+                return Object.assign(accumulator, meta)
+              }, {})
+              data.config = config
+              //Update Composer and re-render form
+              sendMessage('data', data);
+              render(content, data.config);
+              //  window.close();
+            }
 
-      //  const element = document.createElement('div')
-      //  document.getElementById('content_holder').innerHTML = ''
-      //  document.getElementById('content_holder').appendChild(element)
-      //  //element.outerHTML = html
+            // -------------------------------------------------
 
-       //document.getElementById('option_1').value = (config.option_1 ? config.option_1 : "")
+            const dismissEditor = () => {
+              window.close();
+            }
 
-      //  const metadata = Array.from(document.querySelectorAll(".custom-embed"));
-      //  console.log('default content:', metadata)
+            window.onload = function() {
+              const parameters = Object.assign(
+                {
+                  wait: 0
+                },
+                parseQueryString()
+              )
+              // Emulate wait time
+              setTimeout(function() {
+                sendMessage('ready', {
+                  height: document.documentElement.scrollHeight
+                })
+              }, Number.parseInt(parameters.wait))
 
-      //  console.log('config:', config)
+              /* editor = ace.edit('editor')
+               * editor.getSession().setUseWorker(false)
+               * editor.setTheme('ace/theme/chrome')
+               * editor.getSession().setMode('ace/mode/json')
+               * editor.setOptions({
+               *   autoScrollEditorIntoView: true,
+               *   copyWithEmptySelection: true
+               * })
+               * editor.session.setUseWrapMode(true)*/
+              //editor.session.on('change', function(delta) {
+              //  renderChanges()
+              //})
 
-      //  console.log('data:', data)
-      //  for (let i=0; i<metadata.length; i++){
-      //     if (document.getElementById(metadata[i])){
-      //       document.getElementById(metadata[i].id).value = config[metadata[i]];
-      //     }
-      //   }
-
-      const element = document.createElement("img")
-     element.src = config.image_src;
-      document.getElementById('config_edit').appendChild(element)
-      for (let key in config){
-        let newEle = document.getElementById(key);
-        if(newEle){
-          newEle.value = config[key];
-        }
-      }
-     
-     }
-
-
-     // Update config based on form changes, submit back to Composer and re-render
-     const applyChanges = () => {
-       //data.config.option_1 = document.getElementById('option_1').value
-
-       const metadata = Array.from(document.querySelectorAll(".custom-embed"));
-
-       const config = metadata.reduce((accumulator, input)=>{
-         let meta = {};
-         meta[input.id] = input.value;
-         return Object.assign(accumulator, meta)
-       }, {})
-
-       data.config = config
-
-       console.log(data)
-
-       sendMessage('data', data);
-       window.close();
-
-       // Update Composer and re-render form
-       //sendMessage('data', data)
-       //render(content, data.config)
-     }
-
-     // -------------------------------------------------
-
-     const dismissEditor = () => {
-       //sendMessage('cancel')
-       window.close();
-     }
-
-     window.onload = function() {
-       const parameters = Object.assign(
-         {
-           wait: 0
-         },
-         parseQueryString()
-       )
-       // Emulate wait time
-       setTimeout(function() {
-         sendMessage('ready', {
-           height: document.documentElement.scrollHeight
-         })
-       }, Number.parseInt(parameters.wait))
-
-       /* editor = ace.edit('editor')
-        * editor.getSession().setUseWorker(false)
-        * editor.setTheme('ace/theme/chrome')
-        * editor.getSession().setMode('ace/mode/json')
-        * editor.setOptions({
-        *   autoScrollEditorIntoView: true,
-        *   copyWithEmptySelection: true
-        * })
-        * editor.session.setUseWrapMode(true)*/
-       //editor.session.on('change', function(delta) {
-       //  renderChanges()
-       //})
-
-       data = JSON.parse(decodeURIComponent(parameters.p))
-       fetchData(data)
-       //document.getElementById('btn_apply').onclick = applyChanges
-       //document.getElementById('btn_cancel').onclick = dismissEditor
-     }
-    </script>
-  </body>
+              data = JSON.parse(decodeURIComponent(parameters.p))
+              fetchData(data)
+            }
+        </script>
+    </body>
 </html>
