@@ -155,8 +155,11 @@
        //document.getElementById('option_1').value = (config.option_1 ? config.option_1 : "")
 
        const metadata = Array.from(document.querySelectorAll(".custom-embed"));
+       console.log('default content:', metadata)
         for (let i=0; i<metadata.length; i++){
-          document.getElementById(metadata[i]).value = config[metadata[i]];
+          if (document.getElementById(metadata[i])){
+            document.getElementById(metadata[i]).value = config[metadata[i]];
+          }
         }
 
      }
@@ -168,7 +171,7 @@
 
        const metadata = Array.from(document.querySelectorAll(".custom-embed"));
 
-       console.log(metadata)
+       console.log('edit meta data',metadata);
        const config = metadata.reduce((accumulator, input)=>{
          let meta = {};
          meta[input.name] = input.value;
