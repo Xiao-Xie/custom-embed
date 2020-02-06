@@ -156,7 +156,11 @@
 
        const metadata = Array.from(document.querySelectorAll(".custom-embed"));
        console.log('default content:', metadata)
-        for (let i=0; i<metadata.length; i++){
+
+       console.log('config:', config)
+
+       console.log('data:', data)
+       for (let i=0; i<metadata.length; i++){
           if (document.getElementById(metadata[i])){
             document.getElementById(metadata[i].id).value = config[metadata[i]];
           }

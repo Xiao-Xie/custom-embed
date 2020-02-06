@@ -225,7 +225,7 @@
        console.log(metadata)
        const config = metadata.reduce((accumulator, input)=>{
          let meta = {};
-         meta[input.name] = input.value;
+         meta[input.id] = input.value;
          return Object.assign(accumulator, meta)
        }, {})
 
