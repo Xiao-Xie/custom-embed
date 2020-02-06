@@ -61,9 +61,7 @@
                                                 </button>
                                         </div>
                                 </form>
-                                <div id="image_preview">
-                                        <img id="image_src" src="" / >
-                                </div>
+                                        <img id="image_preview" src="" / >
                         </div>
                 </div>
         </main>
@@ -127,6 +125,7 @@
                                         newEle.value = config[key];
                                 }
                         }
+                        document.getElementById("image_preview").src= config.image_src;
                 };
 
                 // Update config based on form changes, submit back to Composer and re-render
@@ -151,7 +150,7 @@
                 // -------------------------------------------------
 
                 const dismissEditor = () => {
-                        window.close();
+                        sendMessage("cancel");
                 };
 
                 window.onload = function () {
