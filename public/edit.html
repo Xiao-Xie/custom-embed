@@ -13,10 +13,6 @@
         <main role="main">
                 <div class="album py-5 bg-light">
                         <div class="container">
-                                <div class="row" id="content_holder">
-                                        Loading...
-                                </div>
-
                                 <!-- Edit Form -->
 
                                 <form class="custom_embed_edit">
@@ -69,7 +65,7 @@
                 </div>
         </main>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
                 integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
                 crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -79,7 +75,7 @@
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
                 crossorigin="anonymous"></script>
         <script src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js" type="text/javascript"
-                charset="utf-8"></script>
+                charset="utf-8"></script> -->
         <script>
                 const sendMessage = function (action, data) {
                         window.parent.postMessage(
@@ -120,12 +116,10 @@
 
                 // Render the content data and contextual configuration together
                 const render = (content, config) => {
-                        // const element = document.getElementById("embed_preview");
-                        // element.src = config.image_src;
                         for (let key in config) {
                                 let newEle = document.getElementById(key);
                                 if (newEle) {
-                                        newEle.value = config[key];
+                                        newEle.value = config[key].replace("+"," ");
                                 }
                         }
                         document.getElementById("image_preview").src = config.image_src;
@@ -133,7 +127,6 @@
 
                 // Update config based on form changes, submit back to Composer and re-render
                 const applyChanges = () => {
-
                         const metadata = Array.from(
                                 document.querySelectorAll(".form-control")
                         );
@@ -143,7 +136,7 @@
                                 return Object.assign(accumulator, meta);
                         }, {});
                         data.config = config;
-                        console.log(data)
+                        console.log(data);
                         //Update Composer and re-render form
                         sendMessage("data", data);
                         render(content, data.config);

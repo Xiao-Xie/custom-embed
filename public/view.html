@@ -1,205 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <meta name="theme-color" content="#212529" />
-        <title>View API plugin</title>
-        <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        />
-    </head>
 
-    <body>
-        <main role="main">
-            <div class="album bg-light">
-                <div class="container-fluid">
-                    <div>
-                        <div draggable="true" class="ImageBlock card">
-                            <img
-                                id="embed_image"
-                                width="100%"
-                                src=""
-                                alt=""
-                                class="card-img-top"
-                            />
-                            <h5
-                                class="float-right card-title embed-type"
-                            >
-                                Published
-                            </h5>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <i class="fa fa-picture-o"></i>&nbsp;Image |
-                                    Title <span id="image_title"></span><span
-                                        class="float-right publishStatus publishStatus--published"
-                                        ><i
-                                            class="fa fa-exclamation-triangle"
-                                            aria-hidden="true"
-                                        ></i
-                                        >&nbsp;Unpublished</span
-                                    >
-                                </p>
-                                <p class="card-text">
-                                    <strong>Caption:</strong>&nbsp;<p id="image_caption"></p>
-                                </p>
-                          
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="row" id="search_content"> -->
-                        <!-- <div>
-                            Image Src:
-                            <input
-                                class="custom-embed"
-                                type="text"
-                                name="src"
-                                id="image_src"
-                            />
-                        </div> -->
-                        <!-- <div>
-                            Caption:
-                            <input
-                                class="custom-embed"
-                                type="text"
-                                name="caption"
-                                id="image_caption"
-                            />
-                        </div> -->
-                        <!-- <div>
-                            Title:
-                            <input
-                                class="custom-embed"
-                                type="text"
-                                name="title"
-                                id="image_title"
-                            />
-                        </div> -->
-                        <!-- <div>
-                            Photographor:
-                            <input
-                                class="custom-embed"
-                                type="text"
-                                name="photographor"
-                                id="image_photographor"
-                            />
-                        </div> -->
-                        <!-- <div>
-                            Source:
-                            <input
-                                class="custom-embed"
-                                type="text"
-                                name="source"
-                                id="image_source"
-                            />
-                        </div> -->
-                        <!-- <div>
-                            Credit:
-                            <input
-                                class="custom-embed"
-                                type="text"
-                                name="credit"
-                                id="image_credit"
-                            />
-                        </div> -->
-                    <!-- </div> -->
-                </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="theme-color" content="#212529" />
+  <title>View API plugin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <style>
+    p {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      max-width: 1200px;
+      max-height: 800px;
+    }
+  </style>
+</head>
+
+<body>
+  <main role="main">
+    <div class="album bg-light">
+      <div class="container-fluid">
+        <div>
+          <div draggable="true" class="ImageBlock card">
+            <div class="embed-imge">
+              <img id="embed_image" width="100%" src="" alt="" class="card-img-top" />
+              <h5 class="float-right card-title" id="embed-type"></h5>
             </div>
-        </main>
-        <script
-            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"
-        ></script>
-        <script>
-            const sendMessage = function(action, data, key) {
-                window.parent.postMessage(
-                    JSON.stringify({
-                        source: "custom_embed",
-                        action,
-                        data,
-                        key: parseQueryString()["k"]
-                    }),
-                    "*"
-                );
-            };
 
-            const parseQueryString = function() {
-                const params = location.search.split("?")[1] || "";
-                const kv = params.split("&");
-                return kv.reduce((result, item) => {
-                    const [key, value] = item.split("=");
-                    return Object.assign(result, {
-                        [key]: value
-                    });
-                }, {});
-            };
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Title:</strong>
+                <br />
+                <span id="image_title"></span>
+              </p>
+              <p class="card-text">
+                <strong>Caption:</strong>
+                <br />
+                <span id="image_caption"></span>
+              </p>
 
-            // ------------------------------------------------
+            </div>
+          </div>
+        </div>
 
-            let data = {};
+      </div>
+    </div>
+  </main>
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script> -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script> -->
+  <script>
+    const sendMessage = function (action, data, key) {
+      window.parent.postMessage(
+        JSON.stringify({
+          source: "custom_embed",
+          action,
+          data,
+          key: parseQueryString()["k"]
+        }),
+        "*"
+      );
+    };
 
-            // Retrieve the content data based on parameters
-            const fetchData = ansCustomEmbed => {
-                data = {
-                    text: "Result One",
-                    id: 1
-                };
-                render(data, ansCustomEmbed.config);
-            };
+    const parseQueryString = function () {
+      const params = location.search.split("?")[1] || "";
+      const kv = params.split("&");
+      return kv.reduce((result, item) => {
+        const [key, value] = item.split("=");
+        return Object.assign(result, {
+          [key]: value
+        });
+      }, {});
+    };
 
-            // Render the content data and contextual configuration together
-            const render = (data, config) => {
-                // const element = document.createElement("img");
-                // element.src = config.image_src;
-                const image = document.getElementById("embed_image")
-                image.src = config.image_src;
-                image.alt = config.image_title;
+    // ------------------------------------------------
 
-                document.getElementById("image_title").innerHTML=config.image_title;
-                document.getElementById("image_caption").innerHTML=config.image_caption;
+    let data = {};
 
-                // for (let key in config) {
-                //     console.log(key);
-                //     let element = document.getElementById(key);
-                //     if (element) {
-                //         element.value = config[key];
-                //     }
-                // }
-            };
+    // Retrieve the content data based on parameters
+    const fetchData = ansCustomEmbed => {
+      data = {
+        text: "Result One",
+        id: 1
+      };
+      render(data, ansCustomEmbed.config);
+    };
 
-            // ------------------------------------------------
+    // Render the content data and contextual configuration together
+    const render = (data, config) => {
 
-            window.onload = function() {
-                const parameters = Object.assign(
-                    {
-                        wait: 0
-                    },
-                    parseQueryString()
-                );
-                fetchData(JSON.parse(decodeURIComponent(parameters.p)));
+      const image = document.getElementById("embed_image")
+      image.src = config.image_src;
+      image.alt = config.image_title;
 
-                // Emulate wait time
-                setTimeout(function() {
-                    sendMessage("ready", {
-                        height: document.documentElement.scrollHeight
-                    });
-                }, Number.parseInt(parameters.wait) + 10);
-            };
-        </script>
-    </body>
+      document.getElementById("image_title").innerHTML = config.image_title;
+      document.getElementById("image_caption").innerHTML = config.image_caption;
+      if (config.element_type === "hero_image") {
+        document.getElementById("embed-type").innerHTML = "Hero";
+      }
+
+    };
+
+    // ------------------------------------------------
+
+    window.onload = function () {
+      const parameters = Object.assign(
+        {
+          wait: 0
+        },
+        parseQueryString()
+      );
+      fetchData(JSON.parse(decodeURIComponent(parameters.p)));
+
+      // Emulate wait time
+      setTimeout(function () {
+        sendMessage("ready", {
+          height: document.documentElement.scrollHeight
+        });
+      }, Number.parseInt(parameters.wait) + 10);
+    };
+  </script>
+</body>
+
 </html>
