@@ -65,17 +65,6 @@
                 </div>
         </main>
 
-        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-                crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                crossorigin="anonymous"></script>
-        <script src="//ajaxorg.github.io/ace-builds/src-min-noconflict/ace.js" type="text/javascript"
-                charset="utf-8"></script> -->
         <script>
                 const sendMessage = function (action, data) {
                         window.parent.postMessage(
@@ -119,7 +108,7 @@
                         for (let key in config) {
                                 let newEle = document.getElementById(key);
                                 if (newEle) {
-                                        newEle.value = config[key].replace("+"," ");
+                                        newEle.value = config[key].replace(/\+/g,' ');
                                 }
                         }
                         document.getElementById("image_preview").src = config.image_src;
@@ -162,19 +151,6 @@
                                         height: document.documentElement.scrollHeight
                                 });
                         }, Number.parseInt(parameters.wait));
-
-                        /* editor = ace.edit('editor')
-                         * editor.getSession().setUseWorker(false)
-                         * editor.setTheme('ace/theme/chrome')
-                         * editor.getSession().setMode('ace/mode/json')
-                         * editor.setOptions({
-                         *   autoScrollEditorIntoView: true,
-                         *   copyWithEmptySelection: true
-                         * })
-                         * editor.session.setUseWrapMode(true)*/
-                        //editor.session.on('change', function(delta) {
-                        //  renderChanges()
-                        //})
 
                         data = JSON.parse(decodeURIComponent(parameters.p));
                         fetchData(data);

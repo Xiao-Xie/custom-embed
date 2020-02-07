@@ -1,137 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="theme-color" content="#212529" />
+        <title>View API plugin</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        />
+        <style>
+            p {
+                font-size: 14px;
+                font-weight: 400;
+            }
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#212529" />
-  <title>View API plugin</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <style>
-    p {
-      font-size: 14px;
-      font-weight: 400;
-    }
+            img {
+                width: 100%;
+                height: 100%;
+                max-width: 1200px;
+                max-height: 800px;
+            }
 
-    img {
-      width: 100%;
-      height: 100%;
-      max-width: 1200px;
-      max-height: 800px;
-    }
-  </style>
-</head>
+            .embed-image {
+                position: relative;
+            }
 
-<body>
-  <main role="main">
-    <div class="album bg-light">
-      <div class="container-fluid">
-        <div>
-          <div draggable="true" class="ImageBlock card">
-            <div class="embed-imge">
-              <img id="embed_image" width="100%" src="" alt="" class="card-img-top" />
-              <h5 class="float-right card-title" id="embed-type"></h5>
+            .embed-attributes {
+                position: absolute;
+                top: 10px;
+                right: 30px;
+            }
+
+            .embed-tag {
+                display: none;
+                padding: 5px;
+                border-radius: 5px;
+                background-color: dodgerblue;
+                color: ghostwhite;
+            }
+        </style>
+    </head>
+
+    <body>
+        <main role="main">
+            <div class="album bg-light">
+                <div class="container-fluid">
+                    <div>
+                        <div draggable="true" class="ImageBlock card">
+                            <div class="embed-imge">
+                                <img
+                                    id="embed_image"
+                                    width="100%"
+                                    src=""
+                                    alt=""
+                                    class="card-img-top"
+                                />
+                                <div class="embed-attributes">
+                                    <div class="embed-tag" id="hero">Hero</div>
+                                    <div class="embed-tag" id="parallex">
+                                        Parallex Scroll
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <strong>Title:</strong>
+                                    <br />
+                                    <span id="image_title"></span>
+                                </p>
+                                <p class="card-text">
+                                    <strong>Caption:</strong>
+                                    <br />
+                                    <span id="image_caption"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </main>
 
-            <div class="card-body">
-              <p class="card-text">
-                <strong>Title:</strong>
-                <br />
-                <span id="image_title"></span>
-              </p>
-              <p class="card-text">
-                <strong>Caption:</strong>
-                <br />
-                <span id="image_caption"></span>
-              </p>
+        <script>
+            const sendMessage = function(action, data, key) {
+                window.parent.postMessage(
+                    JSON.stringify({
+                        source: "custom_embed",
+                        action,
+                        data,
+                        key: parseQueryString()["k"]
+                    }),
+                    "*"
+                );
+            };
 
-            </div>
-          </div>
-        </div>
+            const parseQueryString = function() {
+                const params = location.search.split("?")[1] || "";
+                const kv = params.split("&");
+                return kv.reduce((result, item) => {
+                    const [key, value] = item.split("=");
+                    return Object.assign(result, {
+                        [key]: value
+                    });
+                }, {});
+            };
 
-      </div>
-    </div>
-  </main>
-  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script> -->
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script> -->
-  <script>
-    const sendMessage = function (action, data, key) {
-      window.parent.postMessage(
-        JSON.stringify({
-          source: "custom_embed",
-          action,
-          data,
-          key: parseQueryString()["k"]
-        }),
-        "*"
-      );
-    };
+            // ------------------------------------------------
 
-    const parseQueryString = function () {
-      const params = location.search.split("?")[1] || "";
-      const kv = params.split("&");
-      return kv.reduce((result, item) => {
-        const [key, value] = item.split("=");
-        return Object.assign(result, {
-          [key]: value
-        });
-      }, {});
-    };
+            let data = {};
 
-    // ------------------------------------------------
+            // Retrieve the content data based on parameters
+            const fetchData = ansCustomEmbed => {
+                data = {
+                    text: "Result One",
+                    id: 1
+                };
+                render(data, ansCustomEmbed.config);
+            };
 
-    let data = {};
+            // Render the content data and contextual configuration together
+            const render = (data, config) => {
+                const image = document.getElementById("embed_image");
+                image.src = config.image_src;
+                image.alt = config.image_caption&&config.image_title.replace(/\+/g,' ');
 
-    // Retrieve the content data based on parameters
-    const fetchData = ansCustomEmbed => {
-      data = {
-        text: "Result One",
-        id: 1
-      };
-      render(data, ansCustomEmbed.config);
-    };
+                document.getElementById("image_title").innerHTML =
+                config.image_title&&config.image_title.replace(/\+/g,' ');
+                document.getElementById("image_caption").innerHTML =
+                config.image_caption&&config.image_caption.replace(/\+/g,' ');
+                if (config.element_type === "hero_image") {
+                    document.getElementById("hero").style.display =
+                        "inline-block";
+                }
+                if (config.parallex) {
+                    document.getElementById("parallex").style.display =
+                    "inline-block";
+                }
+            };
 
-    // Render the content data and contextual configuration together
-    const render = (data, config) => {
+            // ------------------------------------------------
 
-      const image = document.getElementById("embed_image")
-      image.src = config.image_src;
-      image.alt = config.image_title;
+            window.onload = function() {
+                const parameters = Object.assign(
+                    {
+                        wait: 0
+                    },
+                    parseQueryString()
+                );
+                fetchData(JSON.parse(decodeURIComponent(parameters.p)));
 
-      document.getElementById("image_title").innerHTML = config.image_title;
-      document.getElementById("image_caption").innerHTML = config.image_caption;
-      if (config.element_type === "hero_image") {
-        document.getElementById("embed-type").innerHTML = "Hero";
-      }
-
-    };
-
-    // ------------------------------------------------
-
-    window.onload = function () {
-      const parameters = Object.assign(
-        {
-          wait: 0
-        },
-        parseQueryString()
-      );
-      fetchData(JSON.parse(decodeURIComponent(parameters.p)));
-
-      // Emulate wait time
-      setTimeout(function () {
-        sendMessage("ready", {
-          height: document.documentElement.scrollHeight
-        });
-      }, Number.parseInt(parameters.wait) + 10);
-    };
-  </script>
-</body>
-
+                // Emulate wait time
+                setTimeout(function() {
+                    sendMessage("ready", {
+                        height: document.documentElement.scrollHeight
+                    });
+                }, Number.parseInt(parameters.wait) + 10);
+            };
+        </script>
+    </body>
 </html>
