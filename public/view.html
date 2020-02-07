@@ -48,37 +48,34 @@
     <body>
         <main role="main">
             <div class="album bg-light">
-                <div class="container-fluid">
-                    <div>
-                        <div draggable="true" class="ImageBlock card">
-                            <div class="embed-imge">
-                                <img
-                                    id="embed_image"
-                                    width="100%"
-                                    src=""
-                                    alt=""
-                                    class="card-img-top"
-                                />
-                                <div class="embed-attributes">
-                                    <div class="embed-tag" id="hero">Hero</div>
-                                    <div class="embed-tag" id="parallex">
-                                        Parallex Scroll
-                                    </div>
+                <div>
+                    <div draggable="true" class="ImageBlock card">
+                        <div class="embed-imge">
+                            <img
+                                id="embed_image"
+                                src=""
+                                alt=""
+                                class="card-img-top"
+                            />
+                            <div class="embed-attributes">
+                                <div class="embed-tag" id="hero">Hero</div>
+                                <div class="embed-tag" id="parallex">
+                                    Parallex Scroll
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <strong>Title:</strong>
-                                    <br />
-                                    <span id="image_title"></span>
-                                </p>
-                                <p class="card-text">
-                                    <strong>Caption:</strong>
-                                    <br />
-                                    <span id="image_caption"></span>
-                                </p>
-                            </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>Title:</strong>
+                                <br />
+                                <span id="image_title"></span>
+                            </p>
+                            <p class="card-text">
+                                <strong>Caption:</strong>
+                                <br />
+                                <span id="image_caption"></span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -126,19 +123,23 @@
             const render = (data, config) => {
                 const image = document.getElementById("embed_image");
                 image.src = config.image_src;
-                image.alt = config.image_caption&&config.image_title.replace(/\+/g,' ');
+                image.alt =
+                    config.image_caption &&
+                    config.image_title.replace(/\+/g, " ");
 
                 document.getElementById("image_title").innerHTML =
-                config.image_title&&config.image_title.replace(/\+/g,' ');
+                    config.image_title &&
+                    config.image_title.replace(/\+/g, " ");
                 document.getElementById("image_caption").innerHTML =
-                config.image_caption&&config.image_caption.replace(/\+/g,' ');
+                    config.image_caption &&
+                    config.image_caption.replace(/\+/g, " ");
                 if (config.element_type === "hero_image") {
                     document.getElementById("hero").style.display =
                         "inline-block";
                 }
                 if (config.parallex) {
                     document.getElementById("parallex").style.display =
-                    "inline-block";
+                        "inline-block";
                 }
             };
 
