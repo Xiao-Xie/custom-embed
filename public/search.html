@@ -154,7 +154,7 @@
               <button type="button" class="ml-2 btn btn-primary" onclick="handlePreView()">
                 Preview
               </button>
-              <button type="button" class="ml-2 btn btn-primary" onclick="applyChanges()">
+              <button type="button" class="ml-2 btn btn-primary" onclick="handleSave()">
                 Submit
               </button>
               <button type="button" class="ml-2 btn btn-secondary" onclick="window.close()">
@@ -248,6 +248,9 @@
       document.querySelector("#preview-image").src = newSrc;
     };
 
+    const handleClose = () => {
+      sendMessage("cancel");
+    };
     //  const render = () => {
     //    // Show search results to user
     //    const template = document.getElementById('content_template').innerHTML

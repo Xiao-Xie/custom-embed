@@ -33,8 +33,10 @@
                                                 <input id="image_src" type="url" class="form-control" value="" />
                                         </div>
                                         <div class="formgroup-mt-up form-group">
-                                                <label class="" for="image_photographor">Photographer (IPTC record inArc)</label>
-                                                <input type="text" class="form-control"id="image_photographor" value="" />
+                                                <label class="" for="image_photographor">Photographer (IPTC record
+                                                        inArc)</label>
+                                                <input type="text" class="form-control" id="image_photographor"
+                                                        value="" />
                                         </div>
                                         <div class="form-group">
                                                 <label class="" for="image_source">Source (IPTC record inArc)</label>
@@ -46,7 +48,8 @@
                                         </div>
                                         <div class="form-group">
                                                 <label class="" for="element_type">Element Type</label>
-                                                <select class="custom-embed form-control" id="element_type" name="element_type">
+                                                <select class="custom-embed form-control" id="element_type"
+                                                        name="element_type">
                                                         <option value="hero_image">Hero Image</option>
                                                         <option value="regular_image">Regular Image</option>
                                                         <option value="about_project">About the project</option>
@@ -61,7 +64,7 @@
                                                 </button>
                                         </div>
                                 </form>
-                                        <img id="image_preview" src="" / >
+                                <img id="image_preview" src="" />
                         </div>
                 </div>
         </main>
@@ -125,12 +128,12 @@
                                         newEle.value = config[key];
                                 }
                         }
-                        document.getElementById("image_preview").src= config.image_src;
+                        document.getElementById("image_preview").src = config.image_src;
                 };
 
                 // Update config based on form changes, submit back to Composer and re-render
                 const applyChanges = () => {
-                        
+
                         const metadata = Array.from(
                                 document.querySelectorAll(".form-control")
                         );
