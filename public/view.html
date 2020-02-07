@@ -13,12 +13,46 @@
             href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         />
     </head>
+
     <body>
         <main role="main">
             <div class="album bg-light">
                 <div class="container-fluid">
-                    <div class="row" id="search_content">
-                        <div>
+                    <div>
+                        <div draggable="true" class="ImageBlock card">
+                            <img
+                                id="embed_image"
+                                width="100%"
+                                src=""
+                                alt=""
+                                class="card-img-top"
+                            />
+                            <h5
+                                class="float-right card-title embed-type"
+                            >
+                                Published
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <i class="fa fa-picture-o"></i>&nbsp;Image |
+                                    Title <span id="image_title"></span><span
+                                        class="float-right publishStatus publishStatus--published"
+                                        ><i
+                                            class="fa fa-exclamation-triangle"
+                                            aria-hidden="true"
+                                        ></i
+                                        >&nbsp;Unpublished</span
+                                    >
+                                </p>
+                                <p class="card-text">
+                                    <strong>Caption:</strong>&nbsp;<p id="image_caption"></p>
+                                </p>
+                          
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row" id="search_content"> -->
+                        <!-- <div>
                             Image Src:
                             <input
                                 class="custom-embed"
@@ -26,8 +60,8 @@
                                 name="src"
                                 id="image_src"
                             />
-                        </div>
-                        <div>
+                        </div> -->
+                        <!-- <div>
                             Caption:
                             <input
                                 class="custom-embed"
@@ -35,8 +69,8 @@
                                 name="caption"
                                 id="image_caption"
                             />
-                        </div>
-                        <div>
+                        </div> -->
+                        <!-- <div>
                             Title:
                             <input
                                 class="custom-embed"
@@ -44,8 +78,8 @@
                                 name="title"
                                 id="image_title"
                             />
-                        </div>
-                        <div>
+                        </div> -->
+                        <!-- <div>
                             Photographor:
                             <input
                                 class="custom-embed"
@@ -53,8 +87,8 @@
                                 name="photographor"
                                 id="image_photographor"
                             />
-                        </div>
-                        <div>
+                        </div> -->
+                        <!-- <div>
                             Source:
                             <input
                                 class="custom-embed"
@@ -62,8 +96,8 @@
                                 name="source"
                                 id="image_source"
                             />
-                        </div>
-                        <div>
+                        </div> -->
+                        <!-- <div>
                             Credit:
                             <input
                                 class="custom-embed"
@@ -71,8 +105,8 @@
                                 name="credit"
                                 id="image_credit"
                             />
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div> -->
                 </div>
             </div>
         </main>
@@ -130,16 +164,22 @@
 
             // Render the content data and contextual configuration together
             const render = (data, config) => {
-                const element = document.createElement("img");
-                element.src = config.image_src;
-                document.getElementById("search_content").appendChild(element);
-                for (let key in config) {
-                    console.log(key);
-                    let newEle = document.getElementById(key);
-                    if (newEle) {
-                        newEle.value = config[key];
-                    }
-                }
+                // const element = document.createElement("img");
+                // element.src = config.image_src;
+                const image = document.getElementById("embed_image")
+                image.src = config.image_src;
+                image.alt = config.image_title;
+
+                document.getElementById("image_title").innerHTML=config.image_title;
+                document.getElementById("image_caption").innerHTML=config.image_caption;
+
+                // for (let key in config) {
+                //     console.log(key);
+                //     let element = document.getElementById(key);
+                //     if (element) {
+                //         element.value = config[key];
+                //     }
+                // }
             };
 
             // ------------------------------------------------
