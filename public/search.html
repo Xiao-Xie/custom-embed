@@ -72,13 +72,15 @@
               <label class="" for="element_type">Image Type</label>
               <select class="custom-embed form-control" id="element_type" name="element_type">
                 <option value="hero_image">Hero Image</option>
-                <option value="regular_image">Regular Image</option>
+                <option value="regular_image">Regular Size</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="" for="image_config">Parallex Scroll</label><br>
-              <input type="radio" id="parallex" name="image_config" value="parallex"> <label for="parallex">Parallex</label>
-              <input type="radio" id="regular" name="image_config" value="regular"> <label for="regular">Regular</label>
+              <label class="" for="image_config">Image Configration</label><br>
+              <select class="custom-embed form-control" id="image_config" name="image_config">
+                <option value="parallex_scroll">Parallex Scroll</option>
+                <option value="regular_image">Regular Image</option>
+              </select>
             </div>
             <div class="d-flex justify-content-end form-group">
               <button type="button" class="ml-2 btn btn-primary" onclick="handlePreView()">
