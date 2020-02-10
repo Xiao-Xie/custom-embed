@@ -48,9 +48,11 @@
                                                         name="element_type">
                                                         <option value="hero_image">Hero Image</option>
                                                         <option value="regular_image">Regular Image</option>
-                                                        <option value="about_project">About the project</option>
-                                                        <option value="about_author">About the author</option>
                                                 </select>
+                                        </div>
+                                        <div class="form-group">
+                                                <label class="" for="parallex_scroll">Parallex Scroll</label>
+                                                <input type="checkbox" name="parallex_scroll" value="true" >
                                         </div>
                                         <div class="d-flex justify-content-end form-group">
                                                 <button type="button" class="btn btn-primary" onclick="applyChanges()">
@@ -108,7 +110,7 @@
                         for (let key in config) {
                                 let newEle = document.getElementById(key);
                                 if (newEle) {
-                                        newEle.value = config[key].replace(/\+/g,' ');
+                                        newEle.value = config[key].replace(/\+/g, ' ');
                                 }
                         }
                         document.getElementById("image_preview").src = config.image_src;
