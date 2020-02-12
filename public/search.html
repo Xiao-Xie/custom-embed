@@ -2,181 +2,178 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="theme-color" content="#212529" />
-  <title>Search API plugin</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <style>
-    .form-group {
-      text-align: left;
-    }
-    #preview-image{
-      max-width:100%;
-      object-fit:scale-down;
-    }
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#212529" />
+    <title>Image Custom Embed - Search API plugin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+        .form-group {
+            text-align: left;
+        }
+
+        #preview-image {
+            max-width: 100%;
+            object-fit: scale-down;
+        }
+    </style>
 </head>
 
 <body>
-  <header>
-    <div class="navbar navbar-dark bg-dark box-shadow">
-      <div class="container d-flex justify-content-between">
-        <a href="#" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-            <circle cx="12" cy="13" r="4"></circle>
-          </svg>
-          <strong>Image Custom Embed</strong>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <main role="main">
-    <section class="jumbotron text-center my-0">
-
-      <div class="album py-5 bg-light">
-        <div class="container">
-          <form class="custom_embed_edit">
-            <div class="form-group">
-              <label for="image_caption" class="">Caption</label>
-              <textarea rows="10" id="image_caption" class="form-control"></textarea>
+    <header>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="mr-2">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                        </path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <strong>Image Custom Embed</strong>
+                </a>
             </div>
-            <div class="form-group">
-              <label for="image_title" class="">Title</label>
-              <textarea rows="6" id="image_title" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="image_src" class="">Link URL</label>
-              <input id="image_src" type="url" class="form-control" value="" />
-            </div>
-            <div class="formgroup-mt-up form-group">
-              <label class="" for="image_photographor">Photographer (IPTC record inArc)</label>
-              <input type="text" class="form-control" id="image_photographor" value="" />
-            </div>
-            <div class="form-group">
-              <label class="" for="image_source">Source (IPTC record inArc)</label>
-              <input type="text" class="form-control" value="" id="image_source" />
-            </div>
-            <div class="form-group">
-              <label class="" for="image_credit">Credit (IPTC record inArc)</label>
-              <input type="text" class="form-control" value="" id="image_credit" />
-            </div>
-            <div class="form-group">
-              <label class="" for="element_type">Image Type</label>
-              <select class="custom-embed form-control" id="element_type" name="element_type">
-                <option value="hero_image">Hero Image</option>
-                <option value="regular_image">Regular Size</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="" for="display_option">Display Option</label><br>
-              <select class="custom-embed form-control" id="display_option" name="display_option">
-                <option value="parallex_scroll">Parallex Scroll</option>
-                <option value="regular_image">Regular Image</option>
-              </select>
-            </div>
-            <div class="d-flex justify-content-end form-group">
-              <button type="button" class="ml-2 btn btn-primary" onclick="handlePreView()">
-                Preview
-              </button>
-              <button type="button" class="ml-2 btn btn-primary" onclick="handleSave()">
-                Submit
-              </button>
-              <button type="button" class="ml-2 btn btn-secondary" onclick="window.close()">
-                Cancel
-              </button>
-            </div>
-          </form>
-          <div id="preview">
-            <img id="preview-image" src="logo192.png" />
-          </div>
         </div>
-      </div>
-    </section>
-  </main>
-  <script>
-    const sendMessage = function (action, data) {
-      window.parent.postMessage(
-        JSON.stringify({
-          source: "custom_embed",
-          action,
-          data,
-          key: parseQueryString()["k"]
-        }),
-        "*"
-      );
-    };
+    </header>
 
-    const parseQueryString = function () {
-      const params = location.search.split("?")[1] || "";
-      const kv = params.split("&");
-      return kv.reduce((result, item) => {
-        const [key, value] = item.split("=");
-        return Object.assign(result, {
-          [key]: value
-        });
-      }, {});
-    };
+    <main role="main">
+        <section class="jumbotron text-center my-0">
 
-    // ------------------------------------------------
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <form class="custom_embed_edit">
+                        <div class="form-group">
+                            <label for="image_caption" class="">Caption</label>
+                            <textarea rows="10" id="image_caption" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image_title" class="">Title</label>
+                            <textarea rows="6" id="image_title" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image_src" class="">Link URL</label>
+                            <input id="image_src" type="url" class="form-control" value="" />
+                        </div>
+                        <div class="formgroup-mt-up form-group">
+                            <label class="" for="image_photographor">Photographer (IPTC record inArc)</label>
+                            <input type="text" class="form-control" id="image_photographor" value="" />
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="image_source">Source (IPTC record inArc)</label>
+                            <input type="text" class="form-control" value="" id="image_source" />
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="image_credit">Credit (IPTC record inArc)</label>
+                            <input type="text" class="form-control" value="" id="image_credit" />
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="element_type">Image Type</label>
+                            <select class="custom-embed form-control" id="element_type" name="element_type">
+                                <option value="hero_image">Hero Image</option>
+                                <option value="regular_image">Regular Size</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="display_option">Display Option</label><br>
+                            <select class="custom-embed form-control" id="display_option" name="display_option">
+                                <option value="parallex_scroll">Parallex Scroll</option>
+                                <option value="regular_image">Regular Image</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end form-group">
+                            <button type="button" class="ml-2 btn btn-primary" onclick="handlePreView()">
+                                Preview
+                            </button>
+                            <button type="button" class="ml-2 btn btn-primary" onclick="handleSave()">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                    <div id="preview">
+                        <img id="preview-image" src="logo192.png" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    let data = [];
+    <script>
+        const sendMessage = function (action, data) {
+            window.parent.postMessage(
+                JSON.stringify({
+                    source: "custom_embed",
+                    action,
+                    data,
+                    key: parseQueryString()["k"]
+                }),
+                "*"
+            );
+        };
 
-    const handlePreView = () => {
-      let newSrc = document.getElementById("image_src").value;
-      document.querySelector("#preview-image").src = newSrc;
-    };
+        const parseQueryString = function () {
+            const params = location.search.split("?")[1] || "";
+            const kv = params.split("&");
+            return kv.reduce((result, item) => {
+                const [key, value] = item.split("=");
+                return Object.assign(result, {
+                    [key]: value
+                });
+            }, {});
+        };
 
-    const handleClose = () => {
-      sendMessage("cancel");
-    };
+        // ------------------------------------------------
 
-    const handleSave = () => {
+        //let data = [];
 
-      const metadata = Array.from(
-        document.querySelectorAll(".form-control")
-      );
+        const handlePreView = () => {
+            let newSrc = document.getElementById("image_src").value;
+            document.querySelector("#preview-image").src = newSrc;
+        };
 
-      console.log(metadata);
-      const config = metadata.reduce((accumulator, input) => {
-        let meta = {};
-        meta[input.id] = input.value;
-        return Object.assign(accumulator, meta);
-      }, {});
+        const handleSave = () => {
 
-      const ansCustomEmbed = {
-        id: "1",
-        url: "https://custom-embed.herokuapp.com/search.html",
-        config: config
-      };
-      console.log(ansCustomEmbed);
+            const metadata = Array.from(
+                document.querySelectorAll(".form-control")
+            );
 
-      sendMessage("data", ansCustomEmbed);
-      window.close();
-    };
+            console.log(metadata);
+            const config = metadata.reduce((accumulator, input) => {
+                let meta = {};
+                meta[input.id] = input.value;
+                return Object.assign(accumulator, meta);
+            }, {});
 
-    // ------------------------------------------------
+            const ansCustomEmbed = {
+                id: "1",
+                url: "https://custom-embed.herokuapp.com/search.html",
+                config: config
+            };
+            console.log(ansCustomEmbed);
 
-    window.onload = function () {
-      const parameters = Object.assign(
-        {
-          wait: 0
-        },
-        parseQueryString()
-      );
-      // Emulate wait time
-      setTimeout(function () {
-        sendMessage("ready", {
-          height: document.documentElement.scrollHeight
-        });
-      }, Number.parseInt(parameters.wait));
+            sendMessage("data", ansCustomEmbed);
+            window.close();
+        };
 
-      // render()
-    };
-  </script>
+        // ------------------------------------------------
+
+        window.onload = function () {
+            const parameters = Object.assign(
+                {
+                    wait: 0
+                },
+                parseQueryString()
+            );
+            // Emulate wait time
+            setTimeout(function () {
+                sendMessage("ready", {
+                    height: document.documentElement.scrollHeight
+                });
+            }, Number.parseInt(parameters.wait));
+
+            // render()
+        };
+    </script>
 </body>
 
 </html>

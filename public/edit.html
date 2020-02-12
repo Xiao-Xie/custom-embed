@@ -2,165 +2,163 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="theme-color" content="#212529" />
-        <title>Edit API plugin</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-        <style>
-                #preview-image {
-                        max-width: 100%;
-                        object-fit: scale-down;
-                }
-        </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#212529" />
+    <title>Image Custom Embed - Edit API plugin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+        #preview-image {
+            max-width: 100%;
+            object-fit: scale-down;
+        }
+    </style>
 </head>
 
 <body>
-        <main role="main">
-                <div class="album py-5 bg-light">
-                        <div class="container">
-                                <!-- Edit Form -->
+    <main role="main">
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <!-- Edit Form -->
+                <form class="custom_embed_edit">
+                    <div class="form-group">
+                        <label for="image_caption" class="">Caption</label>
+                        <textarea rows="10" id="image_caption" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image_title" class="">Title</label>
+                        <textarea rows="6" id="image_title" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image_src" class="">Link URL</label>
+                        <input id="image_src" type="url" class="form-control" value="" />
+                    </div>
+                    <div class="formgroup-mt-up form-group">
+                        <label class="" for="image_photographor">Photographer (IPTC record inArc)</label>
+                        <input type="text" class="form-control" id="image_photographor" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="" for="image_source">Source (IPTC record inArc)</label>
+                        <input type="text" class="form-control" value="" id="image_source" />
+                    </div>
+                    <div class="form-group">
+                        <label class="" for="image_credit">Credit (IPTC record inArc)</label>
+                        <input type="text" class="form-control" value="" id="image_credit" />
+                    </div>
+                    <div class="form-group">
+                        <label class="" for="element_type">Element Type</label>
+                        <select class="custom-embed form-control" id="element_type" name="element_type">
+                            <option value="hero_image">Hero Image</option>
+                            <option value="regular_image">Regular Size</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="" for="display_option">Diaplay Option</label><br>
+                        <select class="custom-embed form-control" id="display_option" name="display_option">
+                            <option value="parallex_scroll">Parallex Scroll</option>
+                            <option value="regular_image">Regular Image</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-end form-group">
+                        <button type="button" class="btn btn-primary" onclick="applyChanges()">Submit</button>
+                        <button type="button" class="ml-2 btn btn-secondary" onclick="dismissEditor()">Cancel</button>
+                    </div>
+                </form>
+                <img id="image_preview" src="" />
+            </div>
+        </div>
+    </main>
 
-                                <form class="custom_embed_edit">
-                                        <div class="form-group">
-                                                <label for="image_caption" class="">Caption</label>
-                                                <textarea rows="10" id="image_caption" class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                                <label for="image_title" class="">Title</label>
-                                                <textarea rows="6" id="image_title" class="form-control"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                                <label for="image_src" class="">Link URL</label>
-                                                <input id="image_src" type="url" class="form-control" value="" />
-                                        </div>
-                                        <div class="formgroup-mt-up form-group">
-                                                <label class="" for="image_photographor">Photographer (IPTC record inArc)</label>
-                                                <input type="text" class="form-control" id="image_photographor" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                                <label class="" for="image_source">Source (IPTC record inArc)</label>
-                                                <input type="text" class="form-control" value="" id="image_source" />
-                                        </div>
-                                        <div class="form-group">
-                                                <label class="" for="image_credit">Credit (IPTC record inArc)</label>
-                                                <input type="text" class="form-control" value="" id="image_credit" />
-                                        </div>
-                                        <div class="form-group">
-                                                <label class="" for="element_type">Element Type</label>
-                                                <select class="custom-embed form-control" id="element_type" name="element_type">
-                                                        <option value="hero_image">Hero Image</option>
-                                                        <option value="regular_image">Regular Size</option>
-                                                </select>
-                                        </div>
-                                        <div class="form-group">
-                                                <label class="" for="display_option">Diaplay Option</label><br>
-                                                <select class="custom-embed form-control" id="display_option" name="display_option">
-                                                        <option value="parallex_scroll">Parallex Scroll</option>
-                                                        <option value="regular_image">Regular Image</option>
-                                                </select>
-                                        </div>
-                                        <div class="d-flex justify-content-end form-group">
-                                                <button type="button" class="btn btn-primary" onclick="applyChanges()">Submit</button>
-                                                <button type="button" class="ml-2 btn btn-secondary" onclick="dismissEditor()">Cancel</button>
-                                        </div>
-                                </form>
-                                <img id="image_preview" src="" />
-                        </div>
-                </div>
-        </main>
+    <script>
+        const sendMessage = function (action, data) {
+            window.parent.postMessage(
+                JSON.stringify({
+                    source: "custom_embed",
+                    action,
+                    data,
+                    key: parseQueryString()["k"]
+                }),
+                "*"
+            );
+        };
 
-        <script>
-                const sendMessage = function (action, data) {
-                        window.parent.postMessage(
-                                JSON.stringify({
-                                        source: "custom_embed",
-                                        action,
-                                        data,
-                                        key: parseQueryString()["k"]
-                                }),
-                                "*"
-                        );
-                };
+        const parseQueryString = function () {
+            const params = location.search.split("?")[1] || "";
+            const kv = params.split("&");
+            return kv.reduce((result, item) => {
+                const [key, value] = item.split("=");
+                return Object.assign(result, {
+                    [key]: value
+                });
+            }, {});
+        };
 
-                const parseQueryString = function () {
-                        const params = location.search.split("?")[1] || "";
-                        const kv = params.split("&");
-                        return kv.reduce((result, item) => {
-                                const [key, value] = item.split("=");
-                                return Object.assign(result, {
-                                        [key]: value
-                                });
-                        }, {});
-                };
+        let data = {}; // ANS custom embed response
+        let content = {}; // The fetched content from external data source
 
-                let data = {}; // ANS custom embed response
-                let content = {}; // The fetched content from external data source
+        // -------------------------------------------------
 
-                // -------------------------------------------------
+        // Retrieve the content data based on parameters
+        const fetchData = ansCustomEmbed => {
+            content = {
+                id: 1,
+                text: "Result One"
+            };
+            render(content, ansCustomEmbed.config);
+        };
 
-                // Retrieve the content data based on parameters
-                const fetchData = ansCustomEmbed => {
-                        content = {
-                                id: 1,
-                                text: "Result One"
-                        };
-                        render(content, ansCustomEmbed.config);
-                };
+        // Render the content data and contextual configuration together
+        const render = (content, config) => {
+            for (let key in config) {
+                let newEle = document.getElementById(key);
+                if (newEle) {
+                    newEle.value = config[key].replace(/\+/g, ' ');
+                }
+            }
+            document.getElementById("image_preview").src = config.image_src;
+        };
 
-                // Render the content data and contextual configuration together
-                const render = (content, config) => {
-                        for (let key in config) {
-                                let newEle = document.getElementById(key);
-                                if (newEle) {
-                                        newEle.value = config[key].replace(/\+/g, ' ');
-                                }
-                        }
-                        document.getElementById("image_preview").src = config.image_src;
-                };
+        // Update config based on form changes, submit back to Composer and re-render
+        const applyChanges = () => {
+            const metadata = Array.from(
+                document.querySelectorAll(".form-control")
+            );
+            const config = metadata.reduce((accumulator, input) => {
+                let meta = {};
+                meta[input.id] = input.value;
+                return Object.assign(accumulator, meta);
+            }, {});
+            data.config = config;
+            console.log(data);
+            //Update Composer and re-render form
+            sendMessage("data", data);
+            render(content, data.config);
+        };
 
-                // Update config based on form changes, submit back to Composer and re-render
-                const applyChanges = () => {
-                        const metadata = Array.from(
-                                document.querySelectorAll(".form-control")
-                        );
-                        const config = metadata.reduce((accumulator, input) => {
-                                let meta = {};
-                                meta[input.id] = input.value;
-                                return Object.assign(accumulator, meta);
-                        }, {});
-                        data.config = config;
-                        console.log(data);
-                        //Update Composer and re-render form
-                        sendMessage("data", data);
-                        render(content, data.config);
-                        //  window.close();
-                };
+        // -------------------------------------------------
 
-                // -------------------------------------------------
+        const dismissEditor = () => {
+            sendMessage("cancel");
+        };
 
-                const dismissEditor = () => {
-                        sendMessage("cancel");
-                };
+        window.onload = function () {
+            const parameters = Object.assign(
+                {
+                    wait: 0
+                },
+                parseQueryString()
+            );
+            // Emulate wait time
+            setTimeout(function () {
+                sendMessage("ready", {
+                    height: document.documentElement.scrollHeight
+                });
+            }, Number.parseInt(parameters.wait));
 
-                window.onload = function () {
-                        const parameters = Object.assign(
-                                {
-                                        wait: 0
-                                },
-                                parseQueryString()
-                        );
-                        // Emulate wait time
-                        setTimeout(function () {
-                                sendMessage("ready", {
-                                        height: document.documentElement.scrollHeight
-                                });
-                        }, Number.parseInt(parameters.wait));
-
-                        data = JSON.parse(decodeURIComponent(parameters.p));
-                        fetchData(data);
-                };
-        </script>
+            data = JSON.parse(decodeURIComponent(parameters.p));
+            fetchData(data);
+        };
+    </script>
 </body>
 
 </html>
