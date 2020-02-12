@@ -137,7 +137,6 @@
                 document.querySelectorAll(".form-control")
             );
 
-            console.log(metadata);
             const config = metadata.reduce((accumulator, input) => {
                 let meta = {};
                 meta[input.id] = input.value;
@@ -149,7 +148,6 @@
                 url: "https://custom-embed.herokuapp.com/search.html",
                 config: config
             };
-            console.log(ansCustomEmbed);
 
             sendMessage("data", ansCustomEmbed);
             window.close();
