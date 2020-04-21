@@ -32,6 +32,10 @@
                         <circle cx="12" cy="13" r="4"></circle>
                     </svg>
                     <strong>Image Custom Embed</strong>
+                    <a href="https://sandbox.advancelocal.arcpublishing.com/pf/custom-embed/image/search/?_website=advancelocal" target="_blank">Arc Page Sandbox Search</a>
+                    <a href="https://sandbox.advancelocal.arcpublishing.com/pf/custom-embed/image/edit/?_website=advancelocal" target="_blank">Arc Page Sandbox Edit</a>
+                    <a href="http://localhost/pf/custom-embed/image/edit/?_website=advancelocal" target="_blank">Arc Page Localhost Search</a>
+                    <a href="http://localhost/pf/custom-embed/image/edit/?_website=advancelocal" target="_blank">Arc Page Localhost Edit</a>
                 </a>
             </div>
         </div>
@@ -77,7 +81,7 @@
                         <div class="form-group">
                             <label class="" for="display_option">Display Option</label><br>
                             <select class="custom-embed form-control" id="display_option" name="display_option">
-                                <option value="parallex_scroll">Parallex Scroll</option>
+                                <option value="parallax_scroll">Parallax Scroll</option>
                                 <option value="regular_image">Regular Image</option>
                             </select>
                         </div>
@@ -99,6 +103,16 @@
     </main>
 
     <script>
+
+window.addEventListener("message", receiveMessage, false);
+
+function receiveMessage(event) {
+  console.log(event);
+  console.log(event.origin);
+  console.log(event.data)
+}
+
+
         const sendMessage = function (action, data) {
             window.parent.postMessage(
                 JSON.stringify({
